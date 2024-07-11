@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     {{-- ... --}}
-    <link rel="stylesheet" href="../../js/app.js">
+    <script type="module" src="{{ asset('build/assets/app-B8hU5Egv.js') }}"></script>
     @vite('resources/js/app.js')
 </head>
 <body class="flex flex-col gap-12">

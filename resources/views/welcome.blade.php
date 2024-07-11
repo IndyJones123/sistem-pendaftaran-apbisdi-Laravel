@@ -133,7 +133,7 @@
     <!-- End Col -->
 
     <div class="relative ms-4">
-      <img class="w-full rounded-md" src="upn.jpg" alt="Image Description">
+      <img class="w-full rounded-md" src="{{ asset('upn.jpg') }}" alt="Image Description">
       <div class="absolute inset-0 -z-[1] bg-gradient-to-tr from-gray-200 via-white/0 to-white/0 size-full rounded-md mt-4 -mb-4 me-4 -ms-4 lg:mt-6 lg:-mb-6 lg:me-6 lg:-ms-6"></div>
 
       <!-- SVG-->
