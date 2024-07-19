@@ -14,8 +14,8 @@
     <nav class="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between " aria-label="Global">
         <div class="flex items-center justify-between">
         <a class="inline-flex items-center gap-x-2 text-xl font-semibold" href="{{ route('/') }}">
-            <!-- <img class="w-10 h-auto" src="../assets/img/logo/logo-short.png" alt="Logo"> -->
-            SistemPT
+            <img class="w-20 h-auto" src="{{asset('apbisdi.png')}}" alt="Logo">
+            Sistem Keangotaan APBISDI 
         </a>
         <div class="sm:hidden">
             <button type="button" class="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" data-hs-collapse="#navbar-image-and-text-2" aria-controls="navbar-image-and-text-2" aria-label="Toggle navigation">

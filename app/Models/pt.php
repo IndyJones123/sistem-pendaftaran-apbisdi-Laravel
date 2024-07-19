@@ -23,7 +23,6 @@ class pt extends Model
        'tglberakhir',
        'berkas1',
        'berkas2',
-       'berkas3',
         'id_biaya',
         'id_user',
         'status',

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('email');
             $table->string('dokumen1');
             $table->string('dokumen2');
-            $table->string('dokumen3');
             $table->string('status');
 
             //Foreign Key

@@ -22,11 +22,10 @@ return new class extends Migration
             $table->string('namakaprodi');
             $table->string('email');
             $table->date('tgldaftar');
-            $table->date('tglapprove');
-            $table->date('tglberakhir');
+            $table->date('tglapprove')->nullable(); // Make this column nullable
+            $table->date('tglberakhir')->nullable();
             $table->string('berkas1');
             $table->string('berkas2');
-            $table->string('berkas3');
             $table->string('status');
 
             //Foreign Key
