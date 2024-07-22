@@ -88,6 +88,11 @@ Route::middleware(['auth', 'pt'])->prefix('pt')->group(function () {
     Route::post('storept', [PtController::class, 'storept'])->name('pt.store');
     //DetailsDataDosen
     Route::get('detailsdatadosen/{id}', [PtController::class, 'detailsdatadosen'])->name('details.datadosen');
+    //EditDataProfilePT
+    Route::get('editprofile', [PtController::class, 'editprofile'])->name('pt/editprofile');
+
+    //Perbarui Data After Mati / Disapprove
+    Route::post('updatept/{id}', [PtController::class, 'updatept'])->name('updatept');
 });
 
 // User Middleware

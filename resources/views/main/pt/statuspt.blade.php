@@ -30,7 +30,7 @@
     
     <!-- End Col -->
   </div>
-  <p class="mt-12 text-center mx-auto" >Data Saya Salah Saya Ingin Memperbaruinya <a href="" class="text-blue-500">Click Here</a></p>
+  <p class="mt-12 text-center mx-auto" >Data Saya Salah Saya Ingin Memperbaruinya <a href="{{route('pt/editprofile')}}" class="text-blue-500">Click Here</a></p>
   <!-- End Grid -->
 </div>
 <!-- End Hero -->
@@ -79,7 +79,7 @@
     <div class="lg:col-span-3">
       <h1 class="block text-2xl font-bold text-red-400 sm:text-4xl md:text-5xl lg:text-4xl">Akun Anda Ditolak atau NonActive</h1>
       <p class="mt-3 text-lg text-gray-800">Mohon Memperbarui Berkas Baru Untuk Dilakukan Verifikasi Ulang Oleh Admin Agar Dapat Mengakses Akun Anda</p>
-      <a class="w-full lg:mt-8 sm:w-auto py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="">
+      <a class="w-full lg:mt-8 sm:w-auto py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="{{route('pt/editprofile')}}">
           >> Perbarui Data Saya <<
       </a>
     </div>

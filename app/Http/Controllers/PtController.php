@@ -9,6 +9,7 @@ use App\Models\individu;
 use App\Models\sertifikatindividu;
 use App\Models\sertifikatkaprodi;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PtController extends Controller
 {
@@ -185,5 +186,63 @@ class PtController extends Controller
 
         // Redirect or return a response
         return redirect()->route('about')->with('success', 'Form submitted successfully');
+    }
+
+    public function editprofile()
+    {
+        $ptData = pt::where('id_user', Auth::id())->first();
+        $layoutData = pt::where('id_user', Auth::id())->first();
+        $currentDate = Carbon::now()->toDateString();
+        return view('main/pt/editprofile', compact('currentDate', 'ptData' , 'layoutData'));
+
+    }
+
+    public function updatept(Request $request,$id)
+    {
+        $currentDate = Carbon::now()->toDateString();
+            // Retrieve the existing record
+        $ptData = Pt::findOrFail($id);
+
+        // Validate the request data
+        $request->validate([
+            'namapt' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'telp' => 'required|string|max:15',
+            'kodept' => 'required|string|max:50',
+            'nidn' => 'required|string|max:20',
+            'namapengelola' => 'required|string|max:255',
+            'namakaprodi' => 'required|string|max:255',
+            'berkas1' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'berkas2' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        ]);
+
+        if($request->hasFile('berkas1'))
+        {
+            $berkas1Name = Str::random(10) . '.' . $request->file('berkas1')->getClientOriginalExtension();
+            $request->file('berkas1')->move('data/',$berkas1Name);
+            $berkas1 = $berkas1Name;
+        }
+        if($request->hasFile('berkas2'))
+        {
+            $berkas2Name = Str::random(10) . '.' . $request->file('berkas1')->getClientOriginalExtension();
+            $request->file('berkas2')->move('data/',$berkas2Name);
+            $berkas2 = $berkas2Name;
+        }
+
+        $ptData->update([
+            'namapt' => $request->input('namapt'),
+            'email' => $request->input('email'),
+            'telp' => $request->input('telp'),
+            'kodept' => $request->input('kodept'),
+            'nidn' => $request->input('nidn'),
+            'namapengelola' => $request->input('namapengelola'),
+            'namakaprodi' => $request->input('namakaprodi'),
+            'tgldaftar' => $currentDate,
+            'status' => "pending",
+            'berkas1' => $berkas1,
+            'berkas2' => $berkas2,
+        ]);
+
+        return redirect()->route('pt/statuspt')->with('success', 'Data updated successfully!');
     }
 }
