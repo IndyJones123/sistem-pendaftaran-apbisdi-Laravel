@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('tglmulai');
             $table->date('tglberakhir');
-
+            $table->string('status');
             //Foreign Key
             $table->integer('id_kaprodi');
             $table->timestamps();

@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Apbsdi</title>
+    <link rel="icon" href="{{ asset('favicon-16x16.png') }}" type="image/x-icon">
     {{-- ... --}}
     <script type="module" src="{{ asset('build/assets/app-B8hU5Egv.js') }}"></script>
+            <!-- Favicon -->
+            
     @vite('resources/js/app.js')
 </head>
 <body class="flex flex-col gap-12">

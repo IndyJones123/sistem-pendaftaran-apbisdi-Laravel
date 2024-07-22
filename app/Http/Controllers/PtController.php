@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\pt;
+use App\Models\individu;
+use App\Models\sertifikatindividu;
+use App\Models\sertifikatkaprodi;
 use Illuminate\Support\Facades\Auth;
 
 class PtController extends Controller
@@ -12,8 +15,115 @@ class PtController extends Controller
     public function index()
     {
         $ptData = pt::where('id_user', Auth::id())->first();
+        $layoutData = pt::where('id_user', Auth::id())->first();
         $currentDate = Carbon::now()->toDateString();
-        return view('main/pt/statuspt', compact('currentDate', 'ptData'));
+        return view('main/pt/statuspt', compact('currentDate', 'ptData' , 'layoutData'));
+    }
+
+    public function detailsdatadosen($id)
+    {
+        $individuData = individu::where('id_user' , $id)->first();
+        $layoutData = pt::where('id_user', Auth::id())->first();  
+
+        return view('main/pt/detailsdatadosen', [
+            'individuData' => $individuData,
+            'layoutData' => $layoutData,
+        ]);
+    }
+
+    public function datadosen(Request $request)
+    {
+            // Retrieve the current user's id_pt
+        $currentUserIdPt = Auth::id();
+        $layoutData = pt::where('id_user', Auth::id())->first();
+
+        // Retrieve the search query from the request
+        $search = $request->input('search');
+
+        // Start the query for retrieving data
+        $query = Individu::where('id_pt', $currentUserIdPt);
+
+        // Apply search filter if the search query is present
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('namadosen', 'like', "%{$search}%")
+                    ->orWhere('nidn', 'like', "%{$search}%")
+                    ->orWhere('notelp', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('status', 'like', "%{$search}%");
+            });
+        }
+
+        // Paginate the results, 10 items per page
+        $ptData = $query->paginate(10);
+
+        return view('main/pt/datadosen', [
+            'ptData' => $ptData,
+            'search' => $search,
+            'layoutData' => $layoutData,
+        ]);
+    }
+
+    public function sertifikatdosen(Request $request)
+    {
+        $currentUserId = Auth::id();
+        $layoutData = pt::where('id_user', Auth::id())->first();
+
+        // Retrieve the search query from the request
+        $search = $request->input('search');
+
+        // Assuming 'individu' is a model representing the 'individu' table
+        $individuData = SertifikatIndividu::whereIn('id_individu', function($query) use ($currentUserId) {
+            $query->select('id_user')
+                  ->from('individus')
+                  ->where('id_pt', $currentUserId);
+        })->with('individu'); // Include the 'individu' relationship
+        
+        // Apply search filter if the search query is present
+        if ($search) {
+            $individuData->where(function($q) use ($search) {
+                $q->orWhere('tglmulai', 'like', "%{$search}%")
+                    ->orWhere('tglberakhir', 'like', "%{$search}%")
+                    ->orWhere('status', 'like', "%{$search}%");
+            });
+        }
+
+        $individuData = $individuData->paginate(10);
+
+        $currentDate = Carbon::now()->toDateString();
+        
+        return view('main/pt/sertifikatdosen', [
+            'currentDate' => $currentDate,
+            'individuData' => $individuData,
+            'search' => $search,
+            'layoutData' => $layoutData,
+        ]);
+
+    }
+
+    public function sertifikatpt(Request $request)
+    {
+        $currentUserId = Auth::id();
+        $layoutData = pt::where('id_user', Auth::id())->first();
+
+        $search = $request->input('search');
+
+        // Assuming 'individu' is a model representing the 'individu' table
+        $ptData = sertifikatkaprodi::where('id_kaprodi', Auth::id());
+
+        // Apply search filter if the search query is present
+        if ($search) {
+            $ptData->where(function($q) use ($search) {
+                $q->orWhere('tglmulai', 'like', "%{$search}%")
+                    ->orWhere('tglberakhir', 'like', "%{$search}%")
+                    ->orWhere('status', 'like', "%{$search}%");
+            });
+        }
+
+        $ptData = $ptData->paginate(10);
+
+        $currentDate = Carbon::now()->toDateString();
+        return view('main/pt/sertifikatpt', compact('currentDate', 'ptData', 'layoutData'));
     }
 
     public function storept(Request $request)
@@ -31,7 +141,6 @@ class PtController extends Controller
             'tgldaftar' => 'required|date',
             'berkas1' => 'required|string|max:2048', // Adjust max file size as needed
             'berkas2' => 'required|string|max:2048', // Adjust max file size as needed
-            'berkas3' => 'required|string|max:2048', // Adjust max file size as needed
             'status' => 'required|string|max:255',
             'id_user' => 'required|integer',
             'id_biaya' => 'required|integer',
@@ -69,7 +178,6 @@ class PtController extends Controller
             'tgldaftar' => $request->tgldaftar,
             'berkas1' => $request->berkas1,
             'berkas2' => $request->berkas2,
-            'berkas3' => $request->berkas3,
             'status' => $request->status,
             'id_user' => $request->id_user,
             'id_biaya' => $request->id_biaya,

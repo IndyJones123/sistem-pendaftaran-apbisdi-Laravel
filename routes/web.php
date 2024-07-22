@@ -48,26 +48,46 @@ Route::middleware(['auth', 'operator'])->prefix('operator')->group(function () {
     Route::get('individu', [OperatorController::class, 'individu'])->name('operator/individu');
     //PT - Operator Page
     Route::get('pt', [OperatorController::class, 'pt'])->name('operator/pt');
+    
+    //Start Aprroving Of Kaprodi (PT)
+
+        //Approve
+        Route::get('/status/approve/pt/{id}', [OperatorController::class, 'approvept'])->name('status.approve.pt');
+        //Disapprove
+        Route::get('/status/disapprove/pt/{id}', [OperatorController::class, 'disapprovept'])->name('status.disapprove.pt');
+        //NonAktive
+        Route::get('/status/nonactive/pt/{id}', [OperatorController::class, 'nonactivept'])->name('status.nonactive.pt');
+
+    //End Approving Of Kaprodi (PT)
+
+    //Start Approving Of User / Dosen 
+        
+        //Approve
+        Route::get('/status/approve/user/{id}', [OperatorController::class, 'approveuser'])->name('status.approve.user');
+        //Disapprove
+        Route::get('/status/disapprove/user/{id}', [OperatorController::class, 'disapproveuser'])->name('status.disapprove.user');
+        //NonAktive
+        Route::get('/status/nonactive/user/{id}', [OperatorController::class, 'nonactiveuser'])->name('status.nonactive.user');
+
+
+    //End Aproving of user / dosen
 });
 
 // PT Middleware
 Route::middleware(['auth', 'pt'])->prefix('pt')->group(function () {
-    Route::get('dashboard', function () {
-        return view('main/pt/dashboard');
-    })->name('pt/dashboard');
-    
+    Route::get('dashboard', [PtController::class, 'index'])->name('pt/dashboard');
     //StatusPT
     Route::get('statuspt', [PtController::class, 'index'])->name('pt/statuspt');
+    //DataDosen
+    Route::get('datadosen', [PtController::class, 'datadosen'])->name('pt/datadosen');
+    //SertifikatDosen
+    Route::get('sertifikatdosen', [PtController::class, 'sertifikatdosen'])->name('pt/sertifikatdosen');
+    //SertifikatPt
+    Route::get('sertifikatpt', [PtController::class, 'sertifikatpt'])->name('pt/sertifikatpt');
     //StorePTAkun
     Route::post('storept', [PtController::class, 'storept'])->name('pt.store');
-    
-    Route::get('datadosen', function () {
-        return view('main/pt/datadosen');
-    })->name('pt/datadosen');
-    
-    Route::get('sertifikatpt', function () {
-        return view('main/pt/sertifikatpt');
-    })->name('pt/sertifikatpt');
+    //DetailsDataDosen
+    Route::get('detailsdatadosen/{id}', [PtController::class, 'detailsdatadosen'])->name('details.datadosen');
 });
 
 // User Middleware

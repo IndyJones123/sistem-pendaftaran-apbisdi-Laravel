@@ -12,6 +12,9 @@ class sertifikatkaprodi extends Model
     protected $fillable = [
        'tglmulai',
        'tglberakhir',
-       'id_individu',
+       'id_kaprodi',
+       'status',
     ];
+
+    
 }

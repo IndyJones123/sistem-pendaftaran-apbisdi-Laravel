@@ -22,5 +22,9 @@ class individu extends Model
         'id_user',
         'status',
     ];
-    
+
+    public function sertifikatIndividu()
+    {
+        return $this->hasMany(SertifikatIndividu::class, 'id_individu', 'id_user');
+    }
 }

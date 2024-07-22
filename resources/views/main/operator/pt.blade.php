@@ -19,17 +19,16 @@
                 Verifikasi & Sertifikat PT Dapat Diakses Disini
               </p>
             </div>
-             <!-- Input -->
-             <div class="sm:col-span-1">
-                <label for="hs-as-table-product-review-search" class="sr-only">Search</label>
-                <div class="relative">
-                  <input type="text" id="hs-as-table-product-review-search" name="hs-as-table-product-review-search" class="py-2 px-3 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Search">
-                  <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4">
-                    <svg class="flex-shrink-0 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                  </div>
+             <!-- Search Form -->
+            <form action="{{ route('operator/pt') }}" method="GET" class="sm:col-span-1">
+              <label for="search" class="sr-only">Search</label>
+              <div class="relative">
+                <input type="text" id="search" name="search" value="{{ request()->input('search') }}" class="py-2 px-3 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" placeholder="Search">
+                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4">
+                  <svg class="flex-shrink-0 size-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </div>
               </div>
-              <!-- End Input -->
+            </form>
           </div>
           <!-- End Header -->
 
@@ -104,37 +103,46 @@
             </thead>
 
             <tbody class="divide-y divide-gray-200">
+              @foreach($ptData as $data)
               <tr class="bg-white hover:bg-gray-50">
                 <td class="size-px whitespace-nowrap">
                   <a class="block relative z-10" href="#">
                     <div class="px-6 py-2">
-                      <div class="block text-sm text-blue-600 decoration-2 hover:underline">UPN Veteran Jatim</div>
+                      <div class="block text-sm text-blue-600 decoration-2 hover:underline">{{$data->namapt}}</div>
                     </div>
                   </a>
                 </td>
-                <td class="h-px w-20 min-w-20 max-w-xs">
-                <a class="block relative z-10" href="#">
-                    <div class="px-6 py-2">
-                    <p class="text-sm text-gray-500">20516</p>
-                    </div>
-                </a>
-                </td>
-                <td class="size-px h-px w-20 min-w-20 whitespace-nowrap">
+                <td class="h-px w-20 min-w-20">
                   <a class="block relative z-10" href="#">
                     <div class="px-6 py-2">
-                        0895703340802
+                      <p class="text-sm text-gray-500">{{$data->nidn}}</p>
                     </div>
                   </a>
                 </td>
                 <td class="size-px whitespace-nowrap">
                   <a class="block relative z-10" href="#">
-                    alfianitem999@gmail.com
+                    <div class="px-6 py-2">
+                    {{$data->alamat}}
+                    </div>
+                  </a>
+                </td>
+                <td class="size-px whitespace-nowrap">
+                  <a class="block relative z-10" href="#">
+                  {{$data->email}}
                   </a>
                 </td>
                 <td class="size-px whitespace-nowrap">
                   <a class="block relative z-10" href="#">
                     <div class="px-6 py-2 flex -space-x-2">
-                      Active
+                    @if($data->status == 'active')
+                    <p class="text-green-500"> Active </p>
+                    @elseif($data->status == 'pending')
+                    <p class="text-yellow-500"> Pending </p>
+                    @elseif($data->status == 'ditolak')
+                    <p class="text-red-500"> Ditolak </p>
+                    @elseif($data->status == 'nonactive')
+                      <p class="text-gray-500"> Non Active </p>
+                    @endif
                     </div>
                   </a>
                 </td>
@@ -146,14 +154,12 @@
                       </button>
                       <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-200 min-w-40 z-20 bg-white shadow-2xl rounded-lg p-2 mt-2" aria-labelledby="hs-table-dropdown-1">
                         <div class="py-2 first:pt-0 last:pb-0">
-                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                            Berkas 1
+                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" target="_blank" href="{{asset('/data/'. $data->berkas1)}} ">
+                          
+                          Berkas 1 ( Bukti Pembayaran )
                           </a>
-                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                            Berkas 2
-                          </a>
-                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                            Berkas 3
+                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" target="_blank" href="{{asset('/data/'. $data->berkas2)}}">
+                            Berkas 2 ( Bukti Surat Keterangan )
                           </a>
                         </div>
                       </div>
@@ -171,48 +177,72 @@
                           <span class="block py-2 px-3 text-xs font-medium uppercase text-gray-400">
                             Actions
                           </span>
-                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                            Active Account
-                          </a>
-                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                            NonActive Account
-                          </a>
-                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                            Download Sertifikat
-                          </a>
+                          @if($data->status == 'pending')
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="{{ route('status.approve.pt', $data->id) }}">
+                              Approve
+                            </a>
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="{{ route('status.disapprove.pt', $data->id) }}">
+                              Disapprove
+                            </a>
+                            
+                          @elseif($data->status == "active")
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="{{ route('status.nonactive.pt', $data->id) }}">
+                              NonActive Account
+                            </a>
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
+                              Download / Upload Sertifikat
+                            </a>
+                          @endif
                         </div>
                       </div>
                     </div>
                   </div>
                 </td>
+                @endforeach
               </tr>
             </tbody>
           </table>
           <!-- End Table -->
 
           <!-- Footer -->
-          <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200">
-            <div>
-              <p class="text-sm text-gray-600">
-                <span class="font-semibold text-gray-800">6</span> results
-              </p>
-            </div>
+<div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200">
+  <div>
+    <p class="text-sm text-gray-600">
+      <span class="font-semibold text-gray-800">{{ $ptData->total() }}</span> results
+    </p>
+  </div>
 
-            <div>
-              <div class="inline-flex gap-x-2">
-                <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
-                  <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                  Prev
-                </button>
+  <div>
+    <div class="inline-flex gap-x-2">
+      <!-- Previous Page Button -->
+      @if($ptData->onFirstPage())
+        <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" disabled>
+          <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          Prev
+        </button>
+      @else
+        <a href="{{ $ptData->previousPageUrl() }}" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
+          <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          Prev
+        </a>
+      @endif
 
-                <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none">
-                  Next
-                  <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-          <!-- End Footer -->
+      <!-- Next Page Button -->
+      @if($ptData->hasMorePages())
+        <a href="{{ $ptData->nextPageUrl() }}" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
+          Next
+          <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+      @else
+        <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" disabled>
+          Next
+          <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      @endif
+    </div>
+  </div>
+</div>
+<!-- End Footer -->
         </div>
       </div>
     </div>

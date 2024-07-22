@@ -13,6 +13,11 @@ class sertifikatindividu extends Model
        'tglmulai',
        'tglberakhir',
        'id_individu',
+       'status',
     ];
     
+    public function individu()
+    {
+        return $this->belongsTo(Individu::class, 'id_individu', 'id_user');
+    }
 }

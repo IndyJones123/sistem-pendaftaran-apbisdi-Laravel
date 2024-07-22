@@ -63,7 +63,7 @@
                         <!-- Add options here -->
                         <option value="" disabled selected>Pilih Asal Universitas</option>
                         @foreach ($ptData as $pt)
-                            <option value="{{ $pt['id'] }}">{{ $pt['namapt'] }}</option>
+                            <option value="{{ $pt['id_user'] }}">{{ $pt['namapt'] }}</option>
                         @endforeach
                         <!-- Add more options as needed -->
                     </select>

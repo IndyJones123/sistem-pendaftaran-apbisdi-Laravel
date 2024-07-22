@@ -2,7 +2,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Apbsdi || Admin </title>
+    <link rel="icon" href="{{ asset('favicon-16x16.png') }}" type="image/x-icon">
     {{-- ... --}}
     @vite('resources/js/app.js')
 </head>
