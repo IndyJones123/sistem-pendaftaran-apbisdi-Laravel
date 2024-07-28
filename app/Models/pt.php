@@ -27,4 +27,9 @@ class pt extends Model
         'id_user',
         'status',
     ];
+
+    public function sertifikatkaprodi()
+    {
+        return $this->hasMany(sertifikatkaprodi::class, 'id_kaprodi', 'id_user');
+    }
 }

@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+
+use App\Models\individu;
+use App\Models\pt;
+
 class ProfileController extends Controller
 {
     /**
@@ -16,8 +20,19 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        if($request->user()->usertype == "pt")
+        {
+            $Data = pt::where('id_user', $request->user()->id)->first();
+        }
+        elseif($request->user()->usertype == "user")
+        {
+            $Data = individu::where('id_user', $request->user()->id)->first();
+        }
+        
+
         return view('profile.edit', [
             'user' => $request->user(),
+            'Data' => $Data,
         ]);
     }
 
@@ -31,6 +46,53 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+
+        if($request->user()->usertype == "pt")
+        {
+            $ptData = Pt::where('id_user', $request->user()->id)->first();
+
+            // Validate the request data
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'telp' => 'required|string|max:15',
+                'kodept' => 'required|string|max:50',
+                'nidn' => 'required|string|max:10',
+                'namapengelola' => 'required|string|max:255',
+                'namakaprodi' => 'required|string|max:255',
+            ]);
+    
+            $ptData->update([
+                'namapt' => $request->input('name'),
+                'email' => $request->input('email'),
+                'telp' => $request->input('telp'),
+                'kodept' => $request->input('kodept'),
+                'nidn' => $request->input('nidn'),
+                'namapengelola' => $request->input('namapengelola'),
+                'namakaprodi' => $request->input('namakaprodi'),
+            ]);
+        }
+
+        if($request->user()->usertype == "user")
+        {
+            $userData = individu::where('id_user', $request->user()->id)->first();
+
+            // Validate the request data
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'telp' => 'required|string|max:15',
+                'nidn' => 'required|string|max:10',
+            ]);
+    
+            $userData->update([
+                'namadosen' => $request->input('name'),
+                'email' => $request->input('email'),
+                'notelp' => $request->input('telp'),
+                'nidn' => $request->input('nidn'),
+            ]);
+        }
+        
 
         $request->user()->save();
 

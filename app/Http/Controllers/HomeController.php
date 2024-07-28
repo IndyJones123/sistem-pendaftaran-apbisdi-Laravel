@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-// use App\Models\PT;
+use App\Models\biaya;
+use App\Models\individu;
+use App\Models\pt;
 
 class HomeController extends Controller
 {
@@ -12,7 +14,14 @@ class HomeController extends Controller
     public function index()
     {
         $currentYear = now()->year; // Get the current year
-        return view('welcome', ['currentYear' => $currentYear]);
+        $totalIndividu = individu::where('status', "active")->count();
+        $totalpt = pt::where('status', "active")->count();
+        
+        return view('welcome', [
+            'currentYear' => $currentYear,
+            'totalIndividu' => $totalIndividu,
+            'totalpt' => $totalpt
+        ]);
     }
 
     public function about()
@@ -24,7 +33,9 @@ class HomeController extends Controller
     public function alur()
     {
         $currentYear = now()->year; // Get the current year
-        return view('alur', ['currentYear' => $currentYear]);
+        $biaya = biaya::all();
+
+        return view('alur', ['currentYear' => $currentYear, 'biaya' => $biaya]);
     }
 
     /**

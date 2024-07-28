@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\individu;
-use Carbon\Carbon;
 use App\Models\pt;
+use Carbon\Carbon;
 use App\Models\sertifikatindividu;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class IndividuController extends Controller
 {
@@ -16,15 +17,33 @@ class IndividuController extends Controller
         $ptData = pt::where('status', 'active')->get();
         $individuData = individu::where('id_user', Auth::id())->first();
         $currentDate = Carbon::now()->toDateString();
-        return view('main/user/dashboard', compact('currentDate', 'ptData', 'individuData'));
+        return view('main/user/dashboard', compact('currentDate', 'individuData', 'ptData'));
     }
 
-    public function sertifikat()
+    public function sertifikat(Request $request)
     {
         $individuData = individu::where('id_user', Auth::id())->first();
-        $sertifikatindividu = sertifikatindividu::where('id_individu', Auth::id())->get();
+        $currentUserId = Auth::id();
+        $layoutData = individu::where('id_user', Auth::id())->first();
+
+        $search = $request->input('search');
+
+        // Assuming 'individu' is a model representing the 'individu' table
+        $sertifikatindividu = sertifikatindividu::where('id_individu', Auth::id());
+
+        // Apply search filter if the search query is present
+        if ($search) {
+            $sertifikatindividu->where(function($q) use ($search) {
+                $q->orWhere('tglmulai', 'like', "%{$search}%")
+                    ->orWhere('tglberakhir', 'like', "%{$search}%")
+                    ->orWhere('status', 'like', "%{$search}%");
+            });
+        }
+
+        $sertifikatindividu = $sertifikatindividu->paginate(10);
+
         $currentDate = Carbon::now()->toDateString();
-        return view('main/user/sertifikat', compact('currentDate', 'sertifikatindividu', 'individuData'));
+        return view('main/user/sertifikat', compact('currentDate', 'sertifikatindividu', 'individuData', 'layoutData'));
     }
 
     public function storeindividu(Request $request)
@@ -82,5 +101,58 @@ class IndividuController extends Controller
 
         // Redirect or return a response
         return redirect()->route('user/dashboard')->with('success', 'Form submitted successfully');
+    }
+
+    public function editprofile()
+    {
+        $individuData = individu::where('id_user', Auth::id())->first();
+        $layoutData = individu::where('id_user', Auth::id())->first();
+        $currentDate = Carbon::now()->toDateString();
+        return view('main/user/editprofile', compact('currentDate', 'individuData' , 'layoutData'));
+
+    }
+
+    public function updateuser(Request $request, $id)
+    {
+        $currentDate = Carbon::now()->toDateString();
+            // Retrieve the existing record
+        $individuData = individu::where('id_user', $id)->firstOrFail();
+
+        
+        // Validate the request data
+        $request->validate([
+            'namadosen' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'notelp' => 'required|string|max:15',
+            'nidn' => 'required|string|max:20',
+            'dokumen1' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'dokumen2' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        ]);
+
+        if($request->hasFile('dokumen1'))
+        {
+            $dokumen1Name = Str::random(10) . '.' . $request->file('dokumen1')->getClientOriginalExtension();
+            $request->file('dokumen1')->move('data/',$dokumen1Name);
+            $dokumen1 = $dokumen1Name;
+        }
+        if($request->hasFile('dokumen2'))
+        {
+            $dokumen2Name = Str::random(10) . '.' . $request->file('dokumen1')->getClientOriginalExtension();
+            $request->file('dokumen2')->move('data/',$dokumen2Name);
+            $dokumen2 = $dokumen2Name;
+        }
+
+        $individuData->update([
+            'namadosen' => $request->input('namadosen'),
+            'email' => $request->input('email'),
+            'notelp' => $request->input('notelp'),
+            'nidn' => $request->input('nidn'),
+            'tgldaftar' => $currentDate,
+            'status' => "pending",
+            'dokumen1' => $dokumen1,
+            'dokumen2' => $dokumen2,
+        ]);
+
+        return redirect()->route('user/dashboard')->with('success', 'Data updated successfully!');
     }
 }

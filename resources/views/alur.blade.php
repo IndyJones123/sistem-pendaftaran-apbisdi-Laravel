@@ -30,7 +30,18 @@
           Berkas Yang Perlu Disiapkan Antara Lain Dokumen Identitas dan Dokumen Bukti Pembayaran
         </p>
       </div>
-      <!-- End Col -->
+      <!-- End Col -->     
+      <div>
+        <h3 class="text-lg font-semibold ">
+          2. Melakukan Pembayaran Ke Bank 
+        </h3>
+        <p class="mt-2 text-gray-600">
+          BRI 4164 01 035833 53 9 Atas Nama APBISDI 
+        </p>
+        @foreach($biaya as $item)
+            <p>Biaya {{$item->keterangan}}: {{ 'Rp ' . number_format($item->biaya, 0, ',', '.') }}</p>
+        @endforeach
+      </div>
 
       <div>
         <h3 class="text-lg font-semibold ">
@@ -40,6 +51,8 @@
           Daftar Dengan Cara Click Daftar Pendaftaran atau Perpanjang Keangotaan Jika Sudah Mendaftar Sebelumnya
         </p>
       </div>
+      
+
       <!-- End Col -->
 
       <div>

@@ -1,8 +1,27 @@
 <x-app-layout>
     <x-slot name="header">
+        @if($user->usertype == "pt")
+        <div class="flex flex-row gap-5">
+        <a href="{{route('pt/statuspt')}}"><img src="{{asset('apbisdi.png')}}" class="w-12" alt=""></a>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}
         </h2>
+        </div>
+        @elseif($user->usertype == "user")
+        <div class="flex flex-row gap-5">
+        <a href="user/dashboard"><img src="{{asset('apbisdi.png')}}" class="w-12" alt=""></a>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Profile') }}
+        </h2>
+        </div>
+        @else
+        <div class="flex flex-row gap-5">
+        <a href="/"><img src="{{asset('apbisdi.png')}}" class="w-12" alt=""></a>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Profile') }}
+        </h2>
+        </div>
+        @endif
     </x-slot>
 
     <div class="py-12">

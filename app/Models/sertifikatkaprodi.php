@@ -16,5 +16,9 @@ class sertifikatkaprodi extends Model
        'status',
     ];
 
+    public function pt()
+    {
+        return $this->belongsTo(pt::class, 'id_kaprodi', 'id_user');
+    }
     
 }

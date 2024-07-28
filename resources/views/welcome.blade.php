@@ -53,9 +53,6 @@
           Daftar Keangotaan
           <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
         </a>
-        <a class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none" href="{{ route('individuExtend') }}">
-          Perpanjang Keangotaan
-        </a>
       </div>
       <!-- End Buttons -->
 
@@ -82,7 +79,7 @@
           </div>
 
           <p class="mt-3 text-sm text-gray-800">
-            <span class="font-bold">4.6</span>  - Totals Anggota PT
+            <span class="font-bold">{{$totalpt}}</span>  - Totals Anggota Perguruan Tinggi Aktif
           </p>
 
           <div class="mt-5">
@@ -117,7 +114,7 @@
           </div>
 
           <p class="mt-3 text-sm text-gray-800">
-            <span class="font-bold">4.8</span>  - Totals Anggota Individu
+            <span class="font-bold">{{$totalIndividu}}</span>  - Totals Anggota Dosen Aktif
           </p>
 
           <div class="mt-5">

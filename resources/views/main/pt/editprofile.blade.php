@@ -137,7 +137,7 @@
           <label for="berkas1" class="inline-block text-sm font-medium text-gray-500 mt-2.5">
           Berkas 1 <br> (Bukti Pembayaran)
           </label>
-          <a class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="{{ asset('data/' . $ptData->berkas1) }}">Old Berkas 1</a>
+          <a class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" target="_blank" href="{{ asset('data/' . $ptData->berkas1) }}">Old Berkas 1</a>
         </div>
         <!-- End Col -->
 
@@ -153,16 +153,16 @@
         </div>
 
         <div class="sm:col-span-3">
-          <label for="berkas2" accept=".png, .jpg, .jpeg, .pdf" class="inline-block text-sm font-medium text-gray-500 mt-2.5">
+          <label for="berkas2"  class="inline-block text-sm font-medium text-gray-500 mt-2.5">
           Berkas 2 <br> Bukti Keterangan
           </label>
-          <a class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="{{ asset('data/' . $ptData->berkas2) }}">Old Berkas 2</a>
+          <a class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" target="_blank" href="{{ asset('data/' . $ptData->berkas2) }}">Old Berkas 2</a>
         </div>
         <!-- End Col -->
 
         <div class="sm:col-span-9">
           <label for="berkas2" class="sr-only">Berkas 2 Bukti Keterangan</label>
-          <input required type="file" value="" name="berkas2" id="berkas2" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
+          <input required type="file" accept=".png, .jpg, .jpeg, .pdf" value="" name="berkas2" id="berkas2" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
             file:bg-gray-50 file:border-0
             file:bg-gray-100 file:me-4
             file:py-2 file:px-4

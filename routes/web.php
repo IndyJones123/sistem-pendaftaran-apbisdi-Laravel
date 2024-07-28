@@ -30,12 +30,32 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('pt', [AdminController::class, 'pt'])->name('admin/pt');
     //IndividuMasterData - Admin Page
     Route::get('individu', [AdminController::class, 'individu'])->name('admin/individu');
-    //BiayaMasterData - Admin Page
-    Route::get('biaya', [AdminController::class, 'biaya'])->name('admin/biaya');
+
     //SertifikatPTMasterData - Admin Page
     Route::get('sertifikatpt', [AdminController::class, 'sertifikatpt'])->name('admin/sertifikatpt');
     //SertifikatIndividuMasterData - Admin Page
     Route::get('sertifikatindividu', [AdminController::class, 'sertifikatindividu'])->name('admin/sertifikatindividu');
+
+    // Start Of Biaya =========================================
+
+    Route::get('biaya', [AdminController::class, 'biaya'])->name('admin/biaya');
+
+    Route::get('biayaedit/{id}', [AdminController::class, 'biayaedit'])->name('biayaedit');
+
+    Route::post('updatebiaya/{id}', [AdminController::class, 'updatebiaya'])->name('updatebiaya');
+
+    // End Of Biaya ============================================
+
+
+    // Start Of Link =========================================
+
+    Route::get('link', [AdminController::class, 'link'])->name('admin/link');
+
+    Route::get('linkedit/{id}', [AdminController::class, 'linkedit'])->name('linkedit');
+
+    Route::post('updatelink/{id}', [AdminController::class, 'updatelink'])->name('updatelink');
+
+    // End Of Link ============================================
 
 });
 
@@ -105,6 +125,11 @@ Route::middleware(['auth', 'user'])->prefix('user')->group(function () {
     //SertifikatUser
     Route::get('sertifikat', [IndividuController::class, 'sertifikat'])->name('user/sertifikat');
 
+    //EditDataProfileDosen
+    Route::get('editprofileDosen', [IndividuController::class, 'editprofile'])->name('user/editprofile');
+
+    //Perbarui Data After Mati / Disapprove
+    Route::post('updateprofileuser/{id}', [IndividuController::class, 'updateuser'])->name('updateprofileuser');
 });
 
 

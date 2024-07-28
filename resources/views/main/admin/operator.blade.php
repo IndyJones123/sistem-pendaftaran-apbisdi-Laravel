@@ -53,25 +53,6 @@
                     <svg class="flex-shrink-0 size-3.5 text-gray-800" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
                   </a>
                 </th>
-
-                <th scope="col" class="px-6 py-3 text-start">
-                  <a class="group inline-flex items-center gap-x-2" href="#">
-                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
-                      Password
-                    </span>
-                    <svg class="flex-shrink-0 size-3.5 text-gray-800" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                  </a>
-                </th>
-
-                <th scope="col" class="px-6 py-3 text-start">
-                  <a class="group inline-flex items-center gap-x-2" href="#">
-                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800">
-                      Action
-                    </span>
-                    <svg class="flex-shrink-0 size-3.5 text-gray-800" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
-                  </a>
-                </th>
-
               </tr>
             </thead>
 
@@ -91,24 +72,6 @@
                     <p class="text-sm text-gray-500">{{$operator->email}}</p>
                     </div>
                 </a>
-                </td>
-                <td class="size-px h-px w-20 min-w-20 whitespace-nowrap">
-                  <a class="block relative z-10" href="#">
-                    <div class="px-6 py-2">
-                    {{$operator->decrypted_password }}
-                    </div>
-                  </a>
-                </td>
-                <td class="size-px whitespace-nowrap">
-                  <div class="px-6 py-1.5 flex gap-3">
-                    <a class="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline font-medium dark:text-blue-500" href="#">
-                      Edit 
-                    </a>
-                    <p>||</p>
-                    <a class="inline-flex items-center gap-x-1 text-sm text-red-600 decoration-2 hover:underline font-medium dark:text-red-500" href="#">
-                      Delete
-                    </a>
-                  </div>
                 </td>
               </tr>
               @endforeach
