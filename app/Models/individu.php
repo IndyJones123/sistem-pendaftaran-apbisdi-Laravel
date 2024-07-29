@@ -27,4 +27,11 @@ class individu extends Model
     {
         return $this->hasMany(SertifikatIndividu::class, 'id_individu', 'id_user');
     }
+
+    public function pt()
+    {
+        return $this->belongsTo(pt::class, 'id_pt', 'id_user');
+    }
+
+
 }

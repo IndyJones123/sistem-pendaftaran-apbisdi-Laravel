@@ -20,7 +20,7 @@
   <div class="grid lg:grid-cols-7 lg:gap-x-8 xl:gap-x-12 lg:items-center">
     <div class="lg:col-span-3">
       <h1 class="block text-2xl font-bold text-yellow-400 sm:text-4xl md:text-5xl lg:text-4xl">Akun Anda Sedang Diverifikasi</h1>
-      <p class="mt-3 text-lg text-gray-800">Mohon Menunggu Operator Untuk Menyelesaikan Verifikasi Sebelum Mendapatkan Akses</p>
+      <p class="mt-3 text-lg text-gray-800">Mohon Menunggu Operator Untuk Menyelesaikan Verifikasi Sebelum Mendapatkan Akses Dan Mohon Check Email Anda Secara Berkala</p>
       
     </div>
     <!-- End Col -->

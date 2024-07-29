@@ -129,18 +129,14 @@
                     <div class="px-6 py-2 flex -space-x-2">
                     @if($data->status == 'active')
                     <p class="text-green-500"> Active </p>
-                    @elseif($data->status == 'pending')
-                    <p class="text-yellow-500"> Pending </p>
-                    @elseif($data->status == 'ditolak')
-                    <p class="text-red-500"> Ditolak </p>
-                    @elseif($data->status == 'nonactive')
-                      <p class="text-gray-500"> Non Active </p>
+                    @else
+                    <p class="text-red-500"> Expired </p>
                     @endif
                     </div>
                   </a>
                 </td>
                 <td>
-                  <a class="text-blue-300" target="_blank" href="{{ strpos($link->link, 'http') === 0 ? $link->link : 'https://' . $link->link }}">Download sertifikat</a>
+                  <a class="text-blue-300" target="_blank" href="{{ strpos($data->link, 'http') === 0 ? $data->link : 'https://' . $data->link }}">Download sertifikat</a>
                 </td>
                 
                 @endforeach

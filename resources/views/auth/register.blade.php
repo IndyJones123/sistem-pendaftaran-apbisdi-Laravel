@@ -39,7 +39,7 @@
                 <!-- nidn -->
                 <div class="mt-4">
                     <x-input-label for="nidn" :value="__('NIDN')" />
-                    <x-text-input id="nidn" class="block mt-1 w-full" type="number" name="nidn" :value="old('nidn')" required autocomplete="username" />
+                    <x-text-input id="nidn" class="block mt-1 w-full" type="number" name="nidn" :value="old('nidn')" required autocomplete="username" max="9999999999" oninput="limitDigits(this, 10)" />
                     <x-input-error :messages="$errors->get('nidn')" class="mt-2" />
                 </div>
                 <!-- Password -->
@@ -58,7 +58,21 @@
             <div class="col-span-3 row-span-3 ...">
                 <!-- namapt -->
                 <div class="">
-                    <x-input-label for="id_pt" :value="__('Asal Perguruan Tinggi')" />
+                        <!-- Tooltip -->
+                    <div class="flex flex-row">
+                        <x-input-label for="id_pt" :value="__('Asal Perguruan Tinggi')" />
+                        <div class="ml-2 relative group">
+                            <!-- Icon (e.g., Heroicons) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 text-blue-400">
+                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                            </svg>
+                            <!-- Tooltip -->
+                            <div class="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 w-48 bg-gray-800 text-white text-xs rounded-lg p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                Apabila Perguruan Tinggi Anda Belum Ada Mohon Hubungi Kaprodi Anda Untuk Mendaftarkannya Di APBISDI Terlebih Dahulu
+                            </div>
+                        </div>
+                    </div>
+
                     <select id="id_pt" name="id_pt" class="block mt-1 w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" required autocomplete="username">
                         <!-- Add options here -->
                         <option value="" disabled selected>Pilih Asal Universitas</option>
@@ -143,7 +157,7 @@
                 <!-- nidn -->
                 <div class="mt-4">
                     <x-input-label for="nidn" :value="__('NIDN')" />
-                    <x-text-input id="nidn" class="block mt-1 w-full" type="number" name="nidn" :value="old('nidn')" required autocomplete="username" />
+                    <x-text-input id="nidn" class="block mt-1 w-full" type="number" name="nidn" :value="old('nidn')" required autocomplete="username" max="9999999999" oninput="limitDigits(this, 10)" />
                     <x-input-error :messages="$errors->get('nidn')" class="mt-2" />
                 </div>
                 <!-- Password -->
@@ -275,3 +289,10 @@
     }
 </style>
 
+<script>
+    function limitDigits(input, maxDigits) {
+        if (input.value.length > maxDigits) {
+            input.value = input.value.slice(0, maxDigits);
+        }
+    }
+</script>

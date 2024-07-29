@@ -156,9 +156,8 @@
                       </button>
                       <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-200 min-w-40 z-20 bg-white shadow-2xl rounded-lg p-2 mt-2" aria-labelledby="hs-table-dropdown-1">
                         <div class="py-2 first:pt-0 last:pb-0">
-                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" target="_blank" href="{{asset('/data/'. $data->dokumen1)}} ">
-                          
-                          Berkas 1 ( Bukti Pembayaran )
+                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" target="_blank" href="{{asset('/data/'. $data->dokumen1)}} ">  
+                            Berkas 1 ( Bukti Pembayaran )
                           </a>
                           <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" target="_blank" href="{{asset('/data/'. $data->dokumen2)}}">
                             Berkas 2 ( Bukti Surat Keterangan )
@@ -180,7 +179,7 @@
                             Actions
                           </span>
                           @if($data->status == 'pending')
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="{{ route('status.approve.user', $data->id) }}">
+                            <a href="#" class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" data-modal-toggle="upload-modal-{{ $data->id }}">
                               Approve
                             </a>
                             <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="{{ route('status.disapprove.user', $data->id) }}">
@@ -188,11 +187,8 @@
                             </a>
                             
                           @elseif($data->status == "active")
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="{{ route('status.nonactive.user', $data->id) }}">
-                              NonActive Account
-                            </a>
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" href="#">
-                              Download / Upload Sertifikat
+                            <a href="#" class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" data-modal-toggle="edit-modal-{{ $data->id }}">
+                              Edit Link Sertifikat
                             </a>
                           @endif
                         </div>
@@ -200,6 +196,42 @@
                     </div>
                   </div>
                 </td>
+                <!-- Modal for Upload Sertifikat -->
+                <div id="upload-modal-{{ $data->id }}" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 hidden">
+                            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full relative">
+                              <!-- Close Button -->
+                              <h2 class="text-lg font-semibold mb-4">Upload Link Sertifikat Gdrive</h2>
+                              <form action="{{ route('status.approve.user', $data->id) }}" method="POST">
+                                @csrf
+                                <div class="mb-4">
+                                  <label for="sertifikat_file" class="block text-sm font-medium text-gray-700">Sertifikat File</label>
+                                  <input type="text" required id="link" name="link" class="mt-1 block w-full text-sm border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div class="mt-4 flex gap-x-4">
+                                  <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Upload</button>
+                                  <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" data-modal-close>Cancel</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                <!-- Modal for Upload Sertifikat -->
+                <div id="edit-modal-{{ $data->id }}" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 hidden">
+                            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full relative">
+                              <!-- Close Button -->
+                              <h2 class="text-lg font-semibold mb-4">Upload Link Sertifikat Gdrive</h2>
+                              <form action="{{ route('status.edit.user', $data->id_user) }}" method="POST">
+                                @csrf
+                                <div class="mb-4">
+                                  <label for="sertifikat_file" class="block text-sm font-medium text-gray-700">Edit Sertifikat File</label>
+                                  <input type="text" required id="link" name="link" class="mt-1 block w-full text-sm border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div class="mt-4 flex gap-x-4">
+                                  <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Upload</button>
+                                  <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" data-modal-close>Cancel</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
                 @endforeach
               </tr>
             </tbody>
@@ -251,5 +283,25 @@
   </div>
   <!-- End Card -->
 </div>
+
+<script>
+  // Show or hide modal
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-modal-toggle]').forEach(button => {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        const modalId = button.getAttribute('data-modal-toggle');
+        const modal = document.getElementById(modalId);
+        modal.classList.toggle('hidden');
+      });
+    });
+
+    document.querySelectorAll('[data-modal-close]').forEach(button => {
+      button.addEventListener('click', () => {
+        button.closest('.fixed').classList.add('hidden');
+      });
+    });
+  });
+</script>
 <!-- End Table Section -->
 @endsection

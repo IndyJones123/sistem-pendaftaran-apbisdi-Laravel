@@ -11,7 +11,7 @@
       <div class="grid sm:grid-cols-12 gap-2 sm:gap-4 py-8 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200">
         <div class="sm:col-span-12">
           <h2 class="text-lg font-semibold text-gray-800">
-            Ubah Harga Keangotaan
+            Ubah Link Contact Sistem Informasi
           </h2>
         </div>
         <!-- End Col -->

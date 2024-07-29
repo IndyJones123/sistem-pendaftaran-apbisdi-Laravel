@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('tglmulai');
             $table->date('tglberakhir');
             $table->string('status');
+            $table->string('link');
             
             //Foreign Key
             $table->integer('id_individu');

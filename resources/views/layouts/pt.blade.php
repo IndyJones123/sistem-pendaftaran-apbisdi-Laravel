@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apbsdi || PT</title>
+    <title>Apbisdi || PT</title>
     <link rel="icon" href="{{ asset('favicon-16x16.png') }}" type="image/x-icon">
     
     {{-- ... --}}

@@ -32,4 +32,9 @@ class pt extends Model
     {
         return $this->hasMany(sertifikatkaprodi::class, 'id_kaprodi', 'id_user');
     }
+
+    public function individu()
+    {
+        return $this->hasMany(individu::class, 'id_user', 'id_pt');
+    }
 }

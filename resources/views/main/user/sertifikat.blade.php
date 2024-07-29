@@ -115,7 +115,7 @@
                   </a>
                 </td>
                 <td>
-                    <a class="text-blue-300" href="">Download Sertifikat</a>
+                <a class="text-blue-300" target="_blank" href="{{ strpos($data->link, 'http') === 0 ? $data->link : 'https://' . $data->link }}">Download sertifikat</a>
                 </td>
                 
                 @endforeach

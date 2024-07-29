@@ -14,6 +14,7 @@ class sertifikatindividu extends Model
        'tglberakhir',
        'id_individu',
        'status',
+       'link',
     ];
     
     public function individu()

@@ -44,9 +44,9 @@ class RegisteredUserController extends Controller
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'usertype' => ['required', 'string', 'max:255'],
                 'namapt' => ['required', 'string', 'max:255'],
-                'kodept' => ['required', 'integer'],
+                'kodept' => ['required', 'string', 'max:255'],
                 'alamat' => ['required', 'string', 'max:255'],
-                'nidn' => ['required', 'integer'],
+                'nidn' => ['required', 'string', 'max:255'],
                 'namapengelola' => ['required', 'string', 'max:255'],
                 'telp' => ['required', 'string'],
                 'berkas1' => ['required', 'file', 'mimes:jpg,png,pdf'], // Adjust MIME types as needed
@@ -100,7 +100,7 @@ class RegisteredUserController extends Controller
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'usertype' => ['required', 'string', 'max:255'],
                 'id_pt' => ['required', 'integer', 'max:255'],
-                'nidn' => ['required', 'integer'],
+                'nidn' => ['required', 'string', 'max:255'],
                 'telp' => ['required', 'string'], //notelp
                 'dokumen1' => ['required', 'file', 'mimes:jpg,png,pdf'], // Adjust MIME types as needed
                 'dokumen2' => ['required', 'file', 'mimes:jpg,png,pdf'], // Adjust MIME types as needed
@@ -143,6 +143,18 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
         Auth::login($user);
-        return redirect(route('/', absolute: false));
+
+        if($request->usertype == "pt")
+        {
+            return redirect(route('pt/statuspt', absolute: false));
+        }
+        elseif($request->usertype == "user")
+        {
+            return redirect(route('user/dashboard', absolute: false));
+        }
+        else
+        {
+            return redirect(route('/', absolute: false));
+        }
     }
 }

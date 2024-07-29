@@ -10,6 +10,15 @@ use App\Models\sertifikatindividu;
 use App\Models\sertifikatkaprodi;
 use Illuminate\Support\Facades\Auth;
 
+
+//Mail
+use App\Mail\PtApproved;
+use App\Mail\PtDisapprove;
+use App\Mail\DosenApproved;
+use App\Mail\DosenDisapprove;
+use Illuminate\Support\Facades\Mail;
+
+
 class OperatorController extends Controller
 {
     public function index()
@@ -88,11 +97,34 @@ class OperatorController extends Controller
         ]);
     }
 
-    public function approvept($id)
+    public function editsertifpt(Request $request, $id)
     {
+        $data = sertifikatkaprodi::where("id_kaprodi", $id)->where("status", "active")->first();
+
+        $request->validate([
+            'link' => 'required|string|max:255',
+        ]);
+
+        if($data)
+        {
+            $data->link = $request->link;
+            $data->save();
+
+            return redirect()->back()->with('success', 'Status updated to active.');
+        }
+
+        return redirect()->back()->with('error', 'Data not found.');
+    }
+
+    public function approvept(Request $request, $id)
+    {
+        $request->validate([
+            'link' => 'required|string|max:255',
+        ]);
+
         $data = pt::find($id);
-        $currentYear = Carbon::now()->toDateString();
-        $nextYear = Carbon::now()->addYear()->toDateString();
+        $currentYear = Carbon::now();
+        $nextYear = Carbon::now()->addYear();
         
         if ($data) {
             $data->status = 'active';
@@ -100,10 +132,21 @@ class OperatorController extends Controller
 
             $sertifikatkaprodi = sertifikatkaprodi::create([
                 'id_kaprodi' => $data->id_user,
-                'tglmulai' => $currentYear,
-                'tglberakhir' => $nextYear,
-                'status' => "Active",
+                'tglmulai' => $currentYear->toDateString(),
+                'tglberakhir' => $nextYear->toDateString(),
+                'status' => "active",
+                'link' => $request->link,
             ]);
+
+            // Send email notification
+            $emailData = (object)[
+                'namakaprodi' => $data->namakaprodi, // assuming 'name' field exists
+                'namapt' => $data->namapt,
+                'start_date' => $currentYear->format('d - m - Y'),
+                'end_date' => $nextYear->format('d - m - Y'),
+                'link' => $request->link,
+            ];
+            Mail::to($data->email)->send(new PtApproved($emailData));
 
             return redirect()->back()->with('success', 'Status updated to active.');
         }
@@ -116,8 +159,15 @@ class OperatorController extends Controller
         $data = pt::find($id);
         
         if ($data) {
-            $data->status = 'Ditolak';
+            $data->status = 'ditolak';
             $data->save();
+
+            // Send email notification
+            $emailData = (object)[
+                'namakaprodi' => $data->namakaprodi, // assuming 'name' field exists
+                'namapt' => $data->namapt,
+            ];
+            Mail::to($data->email)->send(new PtDisapprove($emailData));
             
             return redirect()->back()->with('success', 'Status updated to failed.');
         }
@@ -139,23 +189,60 @@ class OperatorController extends Controller
         return redirect()->back()->with('error', 'Data not found.');
     }
 
-    public function approveuser($id)
+    public function editsertifuser(Request $request, $id)
+    {
+        $data = sertifikatindividu::where("id_individu", $id)->where("status", "active")->first();
+
+        $request->validate([
+            'link' => 'required|string|max:255',
+        ]);
+
+        
+
+        if($data)
+        {
+            $data->link = $request->link;
+            $data->save();
+
+            return redirect()->back()->with('success', 'Status updated to active.');
+        }
+
+        return redirect()->back()->with('error', 'Data not found.');
+    }
+
+    public function approveuser(Request $request, $id)
     {
         $data = individu::find($id);
+
+        $request->validate([
+            'link' => 'required|string|max:255',
+        ]);
         
         if ($data) {
             $data->status = 'active';
             $data->save();
 
-            $currentYear = Carbon::now()->toDateString();
-            $nextYear = Carbon::now()->addYear()->toDateString();
+            $currentYear = Carbon::now();
+            $nextYear = Carbon::now()->addYear();
 
             $sertifikatindividu = sertifikatindividu::create([
                 'id_individu' => $data->id_user,
-                'tglmulai' => $currentYear,
-                'tglberakhir' => $nextYear,
+                'tglmulai' => $currentYear->toDateString(),
+                'tglberakhir' => $nextYear->toDateString(),
                 'status' => "active",
+                'link' => $request->link,
             ]);
+
+
+            // Send email notification
+            $emailData = (object)[
+                'namadosen' => $data->namadosen, // assuming 'name' field exists
+                'nidn' => $data->nidn,
+                'start_date' => $currentYear->format('d - m - Y'), // format untuk email
+                'end_date' => $nextYear->format('d - m - Y'), // format untuk email
+                'link' => $request->link,
+            ];
+            Mail::to($data->email)->send(new DosenApproved($emailData));
 
             return redirect()->back()->with('success', 'Status updated to active.');
         }
@@ -170,6 +257,14 @@ class OperatorController extends Controller
         if ($data) {
             $data->status = 'ditolak';
             $data->save();
+
+            // Send email notification
+            $emailData = (object)[
+                'namadosen' => $data->namadosen, // assuming 'name' field exists
+                'nidn' => $data->nidn,
+            ];
+            Mail::to($data->email)->send(new DosenDisapprove($emailData));
+
             
             return redirect()->back()->with('success', 'Status updated to failed.');
         }

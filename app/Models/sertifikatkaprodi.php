@@ -14,6 +14,7 @@ class sertifikatkaprodi extends Model
        'tglberakhir',
        'id_kaprodi',
        'status',
+       'link',
     ];
 
     public function pt()

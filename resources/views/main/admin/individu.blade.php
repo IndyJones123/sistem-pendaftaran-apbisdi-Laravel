@@ -138,17 +138,7 @@
                   <a class="block relative z-10" href="#">
                     <div class="px-6 py-2">
                     <!-- Query Ngaco -->
-                    @foreach($UserData as $item)
-                        @php
-                            $user = $item->firstWhere('id', $data->id_pt);
-                        @endphp
-
-                        @if($user)
-                            <p>{{ $user->name }}</p>
-                        @else
-                            <p>User not found</p>
-                        @endif
-                    @endforeach
+                   {{$data->pt->namapt}}
                     </div>
                   </a>
                 </td>

@@ -72,7 +72,12 @@ Route::middleware(['auth', 'operator'])->prefix('operator')->group(function () {
     //Start Aprroving Of Kaprodi (PT)
 
         //Approve
-        Route::get('/status/approve/pt/{id}', [OperatorController::class, 'approvept'])->name('status.approve.pt');
+        Route::post('/status/approve/pt/{id}', [OperatorController::class, 'approvept'])->name('status.approve.pt');
+        
+        //EditSertifikat PT
+        Route::post('/status/editsertif/pt/{id}', [OperatorController::class, 'editsertifpt'])->name('status.edit.pt');
+        
+        
         //Disapprove
         Route::get('/status/disapprove/pt/{id}', [OperatorController::class, 'disapprovept'])->name('status.disapprove.pt');
         //NonAktive
@@ -83,7 +88,11 @@ Route::middleware(['auth', 'operator'])->prefix('operator')->group(function () {
     //Start Approving Of User / Dosen 
         
         //Approve
-        Route::get('/status/approve/user/{id}', [OperatorController::class, 'approveuser'])->name('status.approve.user');
+        Route::post('/status/approve/user/{id}', [OperatorController::class, 'approveuser'])->name('status.approve.user');
+
+        //EditSertifikat User
+        Route::post('/status/editsertif/user/{id}', [OperatorController::class, 'editsertifuser'])->name('status.edit.user');
+
         //Disapprove
         Route::get('/status/disapprove/user/{id}', [OperatorController::class, 'disapproveuser'])->name('status.disapprove.user');
         //NonAktive
