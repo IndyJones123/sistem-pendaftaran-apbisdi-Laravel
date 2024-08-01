@@ -103,11 +103,13 @@ class OperatorController extends Controller
 
         $request->validate([
             'link' => 'required|string|max:255',
+            'link2' => 'required|string|max:255',
         ]);
 
         if($data)
         {
             $data->link = $request->link;
+            $data->link2 = $request->link2;
             $data->save();
 
             return redirect()->back()->with('success', 'Status updated to active.');
@@ -120,6 +122,7 @@ class OperatorController extends Controller
     {
         $request->validate([
             'link' => 'required|string|max:255',
+            'link2' => 'required|string|max:255',
         ]);
 
         $data = pt::find($id);
@@ -136,6 +139,7 @@ class OperatorController extends Controller
                 'tglberakhir' => $nextYear->toDateString(),
                 'status' => "active",
                 'link' => $request->link,
+                'link2' => $request->link2,
             ]);
 
             // Send email notification
@@ -145,6 +149,7 @@ class OperatorController extends Controller
                 'start_date' => $currentYear->format('d - m - Y'),
                 'end_date' => $nextYear->format('d - m - Y'),
                 'link' => $request->link,
+                'link2' => $request->link2,
             ];
             Mail::to($data->email)->send(new PtApproved($emailData));
 
@@ -195,6 +200,7 @@ class OperatorController extends Controller
 
         $request->validate([
             'link' => 'required|string|max:255',
+            'link2' => 'required|string|max:255',
         ]);
 
         
@@ -202,6 +208,7 @@ class OperatorController extends Controller
         if($data)
         {
             $data->link = $request->link;
+            $data->link2 = $request->link2;
             $data->save();
 
             return redirect()->back()->with('success', 'Status updated to active.');
@@ -216,6 +223,7 @@ class OperatorController extends Controller
 
         $request->validate([
             'link' => 'required|string|max:255',
+            'link2' => 'required|string|max:255',
         ]);
         
         if ($data) {
@@ -231,6 +239,7 @@ class OperatorController extends Controller
                 'tglberakhir' => $nextYear->toDateString(),
                 'status' => "active",
                 'link' => $request->link,
+                'link2' => $request->link2,
             ]);
 
 
@@ -241,6 +250,7 @@ class OperatorController extends Controller
                 'start_date' => $currentYear->format('d - m - Y'), // format untuk email
                 'end_date' => $nextYear->format('d - m - Y'), // format untuk email
                 'link' => $request->link,
+                'link2' => $request->link2,
             ];
             Mail::to($data->email)->send(new DosenApproved($emailData));
 

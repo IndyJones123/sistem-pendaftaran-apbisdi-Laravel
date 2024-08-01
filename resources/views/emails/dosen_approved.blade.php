@@ -11,6 +11,8 @@
 </ul>
 
 <p>Sertifikat Anda Dapat Anda Akses Dilaman Apbisdi atau link berikut ini : {{$data->link}}</p>
+<p>Invoice Anda Dapat Anda Akses Dilaman Apbisdi atau link berikut ini : {{$data->link2}}</p>
+
 <p>Jika Link Tidak Bekerja Mohon Hubungi Operator / Contact Tim Apbisdi</p>
 
 <p>Kami berharap Anda dapat memanfaatkan seluruh fasilitas dan layanan yang tersedia dengan baik. Jika terdapat pertanyaan atau kebutuhan bantuan lebih lanjut, jangan ragu untuk menghubungi tim dukungan kami.</p>

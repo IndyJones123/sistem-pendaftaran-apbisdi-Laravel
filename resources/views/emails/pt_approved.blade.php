@@ -11,12 +11,12 @@
 </ul>
 
 <p>Sertifikat Anda Dapat Anda Akses Dilaman Apbisdi atau link berikut ini : {{$data->link}}</p>
+<p>Sertifikat Anda Dapat Anda Akses Dilaman Apbisdi atau link berikut ini : {{$data->link2}}</p>
+
 <p>Jika Link Tidak Bekerja Mohon Hubungi Operator / Contact Tim Apbisdi</p>
 
 <p>Kami berharap aktivasi akun ini dapat mendukung kebutuhan akademik dan administrasi universitas Anda. Anda sekarang memiliki akses penuh untuk menggunakan semua fitur dan layanan yang disediakan oleh platform kami.</p>
-
 <p>Jika ada pertanyaan atau memerlukan bantuan lebih lanjut, jangan ragu untuk menghubungi tim dukungan kami. Kami siap membantu Anda kapan pun diperlukan.</p>
-
 <p>Terima kasih atas kerjasama dan kepercayaan Anda kepada Apbisdi. Kami berharap dapat memberikan pelayanan terbaik untuk mendukung kegiatan akademik di universitas Anda.</p>
 
 <p>Salam hormat,</p>

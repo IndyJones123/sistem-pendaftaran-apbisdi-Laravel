@@ -138,14 +138,18 @@
                
             </div>
         </div>
-        <div class="flex items-center justify-end mt-4 ">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-                <x-primary-button class="ms-4">
-                    {{ __('Register') }}
-                </x-primary-button>
+        <div class="flex items-center justify-end mt-4">
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+                {{ __('Already registered?') }}
+            </a>
+            <div class="flex items-center ms-4">
+                <input type="checkbox" id="termsCheckboxDosen" class="mr-2">
+                <label for="termsCheckboxDosen" class="text-sm text-gray-600">I agree to the terms and conditions</label>
             </div>
+            <x-primary-button id="registerButtonDosen" class="ms-4 bg-gray-500 cursor-not-allowed" disabled>
+                {{ __('Register as Dosen') }}
+            </x-primary-button>
+        </div>
     </form>
 
     <!-- Form for PT -->
@@ -265,14 +269,18 @@
 
             </div>
         </div>
-        <div class="flex items-center justify-end mt-4 ">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-                <x-primary-button class="ms-4">
-                    {{ __('Register') }}
-                </x-primary-button>
+       <div class="flex items-center justify-end mt-4">
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+                {{ __('Already registered?') }}
+            </a>
+            <div class="flex items-center ms-4">
+                <input type="checkbox" id="termsCheckboxPT" class="mr-2">
+                <label for="termsCheckboxPT" class="text-sm text-gray-600">I agree to the terms and conditions</label>
             </div>
+            <x-primary-button id="registerButtonPT" class="ms-4 bg-gray-500 cursor-not-allowed" disabled>
+                {{ __('Register as PT') }}
+            </x-primary-button>
+        </div>
     </form>
 </x-guest-layout>
 
@@ -333,4 +341,32 @@
             allowClear: true
         });
     });
+</script>
+
+<script>
+// Enable/Disable register button for Dosen
+        document.getElementById('termsCheckboxDosen').addEventListener('change', function() {
+            if (this.checked) {
+                registerButtonDosen.disabled = false;
+                registerButtonDosen.classList.remove('bg-gray-500', 'cursor-not-allowed');
+                registerButtonDosen.classList.add('bg-indigo-500', 'cursor-pointer');
+            } else {
+                registerButtonDosen.disabled = true;
+                registerButtonDosen.classList.remove('bg-indigo-500', 'cursor-pointer');
+                registerButtonDosen.classList.add('bg-gray-500', 'cursor-not-allowed');
+            }
+        });
+
+        // Enable/Disable register button for PT
+        document.getElementById('termsCheckboxPT').addEventListener('change', function() {
+            if (this.checked) {
+                registerButtonPT.disabled = false;
+                registerButtonPT.classList.remove('bg-gray-500', 'cursor-not-allowed');
+                registerButtonPT.classList.add('bg-indigo-500', 'cursor-pointer');
+            } else {
+                registerButtonPT.disabled = true;
+                registerButtonPT.classList.remove('bg-indigo-500', 'cursor-pointer');
+                registerButtonPT.classList.add('bg-gray-500', 'cursor-not-allowed');
+            }
+        });
 </script>

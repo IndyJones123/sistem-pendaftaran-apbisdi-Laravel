@@ -15,6 +15,7 @@ class sertifikatkaprodi extends Model
        'id_kaprodi',
        'status',
        'link',
+       'link2',
     ];
 
     public function pt()

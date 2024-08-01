@@ -12,10 +12,10 @@
           <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200">
             <div>
               <h2 class="text-xl font-semibold text-gray-800">
-                Daftar Sertifikat Perguruan Tinggi 
+                Daftar Berkas Sertifikat & Invoice Perguruan Tinggi 
               </h2>
               <p class="text-sm text-gray-600">
-                Tenggat Waktu Sertifikat Dosen Dapat Diakses Disini
+                Tenggat Waktu Sertifikat & Invoice PT Dapat Diakses Disini
               </p>
             </div>
             <!-- Search Form -->
@@ -111,7 +111,11 @@
                   </a>
                 </td>
                 <td>
-                    <a class="text-blue-300" href="">Download Sertifikat</a>
+                                      <div class="flex flex-row gap-3">
+                    <a class="text-blue-300" target="_blank" href="{{ strpos($data->link, 'http') === 0 ? $data->link : 'https://' . $data->link }}">Download Sertifikat</a>
+                    ||
+                    <a class="text-blue-300" target="_blank" href="{{ strpos($data->link2, 'http') === 0 ? $data->link2 : 'https://' . $data->link2 }}">Download Invoice</a>
+                  </div>
                 </td>
                 
                 @endforeach

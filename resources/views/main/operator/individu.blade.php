@@ -204,8 +204,12 @@
                               <form action="{{ route('status.approve.user', $data->id) }}" method="POST">
                                 @csrf
                                 <div class="mb-4">
-                                  <label for="sertifikat_file" class="block text-sm font-medium text-gray-700">Sertifikat File</label>
+                                  <label for="sertifikat_file" class="block text-sm font-medium text-gray-700">Link Sertifikat</label>
                                   <input type="text" required id="link" name="link" class="mt-1 block w-full text-sm border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div class="mb-4">
+                                  <label for="sertifikat_file" class="block text-sm font-medium text-gray-700">Link Invoice</label>
+                                  <input type="text" required id="link2" name="link2" class="mt-1 block w-full text-sm border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
                                 </div>
                                 <div class="mt-4 flex gap-x-4">
                                   <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Upload</button>
@@ -218,12 +222,16 @@
                 <div id="edit-modal-{{ $data->id }}" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 hidden">
                             <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full relative">
                               <!-- Close Button -->
-                              <h2 class="text-lg font-semibold mb-4">Upload Link Sertifikat Gdrive</h2>
+                              <h2 class="text-lg font-semibold mb-4">Edit Link Sertifikat Gdrive</h2>
                               <form action="{{ route('status.edit.user', $data->id_user) }}" method="POST">
                                 @csrf
                                 <div class="mb-4">
-                                  <label for="sertifikat_file" class="block text-sm font-medium text-gray-700">Edit Sertifikat File</label>
+                                  <label for="sertifikat_file" class="block text-sm font-medium text-gray-700">Edit Link Sertifikat</label>
                                   <input type="text" required id="link" name="link" class="mt-1 block w-full text-sm border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
+                                </div>
+                                <div class="mb-4">
+                                  <label for="sertifikat_file" class="block text-sm font-medium text-gray-700">Edit Link Invoice</label>
+                                  <input type="text" required id="link2" name="link2" class="mt-1 block w-full text-sm border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
                                 </div>
                                 <div class="mt-4 flex gap-x-4">
                                   <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Upload</button>

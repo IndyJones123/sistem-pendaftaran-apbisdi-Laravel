@@ -15,6 +15,7 @@ class sertifikatindividu extends Model
        'id_individu',
        'status',
        'link',
+       'link2',
     ];
     
     public function individu()
