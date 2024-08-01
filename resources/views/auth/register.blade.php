@@ -1,3 +1,9 @@
+<!-- Include Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Include Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <x-guest-layout>
     <!-- usertype Toggle -->
     <x-input-label for="name_dosen" :value="__('Register Sebagai')" />
@@ -112,6 +118,17 @@
                         file:py-3 file:px-4
                     ">
                     <x-input-error :messages="$errors->get('dokumen2')" class="mt-2" />
+                </div>
+
+                <!-- berkas3 -->
+                <div class="mt-4">
+                    <x-input-label for="gambar" :value="__('Foto Wajah 3x4')" />
+                    <input type="file" name="gambar"  accept=".jpg, .jpeg, .png," id="gambar" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
+                        file:bg-gray-50 file:border-0
+                        file:me-4
+                        file:py-3 file:px-4
+                    ">
+                    <x-input-error :messages="$errors->get('gambar')" class="mt-2" />
                 </div>
                 
             </div>
@@ -234,6 +251,18 @@
                     ">
                     <x-input-error :messages="$errors->get('berkas2')" class="mt-2" />
                 </div>
+
+                                <!-- berkas3 -->
+                <div class="mt-4">
+                    <x-input-label for="gambar" :value="__('Logo Institusi')" />
+                    <input type="file" name="gambar"  accept=".jpg, .jpeg, .png," id="gambar" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
+                        file:bg-gray-50 file:border-0
+                        file:me-4
+                        file:py-3 file:px-4
+                    ">
+                    <x-input-error :messages="$errors->get('gambar')" class="mt-2" />
+                </div>
+
             </div>
         </div>
         <div class="flex items-center justify-end mt-4 ">
@@ -295,4 +324,13 @@
             input.value = input.value.slice(0, maxDigits);
         }
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#id_pt').select2({
+            placeholder: 'Pilih Asal Universitas',
+            allowClear: true
+        });
+    });
 </script>

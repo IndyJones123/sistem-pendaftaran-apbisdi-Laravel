@@ -138,7 +138,7 @@
                   <a class="block relative z-10" href="#">
                     <div class="px-6 py-2">
                     <!-- Query Ngaco -->
-                   {{$data->pt->namapt}}
+                   {{ $data->pt && $data->pt->namapt ? $data->pt->namapt : 'PT Invalid/Expired' }}
                     </div>
                   </a>
                 </td>

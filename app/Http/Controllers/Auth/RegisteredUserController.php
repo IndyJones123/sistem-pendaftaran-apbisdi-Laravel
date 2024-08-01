@@ -51,13 +51,22 @@ class RegisteredUserController extends Controller
                 'telp' => ['required', 'string'],
                 'berkas1' => ['required', 'file', 'mimes:jpg,png,pdf'], // Adjust MIME types as needed
                 'berkas2' => ['required', 'file', 'mimes:jpg,png,pdf'], // Adjust MIME types as needed
+                'gambar' => ['file', 'mimes:jpg,png'], // Adjust MIME types as needed
             ]);
+
+             if($request->hasFile('gambar'))
+            {
+                $gambarName = Str::random(10) . '.' . $request->file('gambar')->getClientOriginalExtension();
+                $request->file('gambar')->move('data/',$gambarName);
+                $gambar = $gambarName;
+            }
     
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'usertype' => $request->usertype,
                 'password' => Hash::make($request->password),
+                'gambar' => $gambar,
             ]);
 
             if($request->hasFile('berkas1'))
@@ -104,13 +113,22 @@ class RegisteredUserController extends Controller
                 'telp' => ['required', 'string'], //notelp
                 'dokumen1' => ['required', 'file', 'mimes:jpg,png,pdf'], // Adjust MIME types as needed
                 'dokumen2' => ['required', 'file', 'mimes:jpg,png,pdf'], // Adjust MIME types as needed
+                'gambar' => ['file', 'mimes:jpg,png'], // Adjust MIME types as needed
             ]);
+
+            if($request->hasFile('gambar'))
+            {
+                $gambarName = Str::random(10) . '.' . $request->file('gambar')->getClientOriginalExtension();
+                $request->file('gambar')->move('data/',$gambarName);
+                $gambar = $gambarName;
+            }
     
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'usertype' => $request->usertype,
                 'password' => Hash::make($request->password),
+                'gambar' => $gambar,
             ]);
 
             if($request->hasFile('dokumen1'))

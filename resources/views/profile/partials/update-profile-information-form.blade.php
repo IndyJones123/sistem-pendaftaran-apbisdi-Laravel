@@ -30,7 +30,7 @@
     </form>
 
     @if($user->usertype == "pt")
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6 ">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6 " enctype="multipart/form-data">
         @csrf
         @method('patch')
 
@@ -88,10 +88,20 @@
             <x-input-error class="mt-2" :messages="$errors->get('namapengelola')" />
         </div>
 
-                <div>
+        <div>
             <x-input-label for="namakaprodi" :value="__('Nama Kaprodi')" />
             <x-text-input id="namakaprodi" name="namakaprodi" type="text" class="mt-1 block w-full" :value="old('namakaprodi', $Data->namakaprodi)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('namakaprodi')" />
+        </div>
+
+        <div class="mt-4">
+                    <x-input-label for="gambar" :value="__('Logo Institusi')" />
+                    <input type="file" name="gambar"  accept=".jpg, .png, .jpeg," id="gambar" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
+                        file:bg-gray-50 file:border-0
+                        file:me-4
+                        file:py-3 file:px-4
+                    ">
+                    <x-input-error class="mt-2" :messages="$errors->get('gambar')" />
         </div>
         
 
@@ -112,7 +122,7 @@
 
     @elseif($user->usertype == "user")
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6 ">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6 " enctype="multipart/form-data">
         @csrf
         @method('patch')
 
@@ -158,6 +168,16 @@
             <x-input-error class="mt-2" :messages="$errors->get('telp')" />
         </div>
 
+        <div class="mt-4">
+                    <x-input-label for="gambar" :value="__('Foto Wajah 3x4')" />
+                    <input type="file" name="gambar"  accept=".jpg, .png , .jpeg, " id="gambar" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none
+                        file:bg-gray-50 file:border-0
+                        file:me-4
+                        file:py-3 file:px-4
+                    ">
+                    <x-input-error :messages="$errors->get('gambar')" class="mt-2" />
+        </div>
+
         
 
         <div class="flex items-center gap-4">
@@ -177,7 +197,7 @@
 
     @else
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6 ">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6 " enctype="multipart/form-data" >
         @csrf
         @method('patch')
 

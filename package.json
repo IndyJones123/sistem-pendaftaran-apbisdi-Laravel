@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@preline/toggle-password": "^2.3.0",
-        "preline": "^2.3.0"
+        "preline": "^2.3.0",
+        "select2": "^4.1.0-rc.0"
     }
 }

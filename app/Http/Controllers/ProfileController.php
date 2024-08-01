@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 
 use App\Models\individu;
@@ -60,6 +61,7 @@ class ProfileController extends Controller
                 'nidn' => 'required|string|max:10',
                 'namapengelola' => 'required|string|max:255',
                 'namakaprodi' => 'required|string|max:255',
+                'gambar' => ['file', 'mimes:jpg,png'], // Adjust MIME types as needed
             ]);
     
             $ptData->update([
@@ -92,9 +94,24 @@ class ProfileController extends Controller
                 'nidn' => $request->input('nidn'),
             ]);
         }
+
+        $request->validate([
+            'gambar' => ['nullable','file', 'mimes:jpg,png,jpeg'], // Adjust MIME types as needed
+        ]);
+
+        if($request->hasFile('gambar'))
+        {
+            $gambarName = Str::random(10) . '.' . $request->file('gambar')->getClientOriginalExtension();
+            $request->file('gambar')->move('data/',$gambarName);
+            $gambar = $gambarName;
+
+            // Update the user's 'gambar' field
+            $user = $request->user();
+            $user->gambar = $gambar; // Assuming 'gambar' is the column name in the users table
+        }
         
 
-        $request->user()->save();
+        $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

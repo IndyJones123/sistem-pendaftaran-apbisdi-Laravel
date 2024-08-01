@@ -74,7 +74,7 @@
           </a>
           <!-- Tooltip -->
           <div class="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 w-48 bg-gray-800 text-white text-xs rounded-lg p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {{ $email->link }}
+              {{ $wa->link }}
           </div>
       </div>
     </div> 
