@@ -202,6 +202,7 @@
                               <h2 class="text-lg font-semibold mb-4">Upload Link Sertifikat Gdrive</h2>
                               <form action="{{ route('status.approve.pt', $data->id) }}" method="POST">
                                 @csrf
+                                <input type="hidden" name="submission_token" value="{{ session('submission_token', \Str::random(40)) }}">
                                 <div class="mb-4">
                                   <label for="sertifikat_file" class="block text-sm font-medium text-gray-700">Link Sertifikat</label>
                                   <input type="text" required id="link" name="link" class="mt-1 block w-full text-sm border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
@@ -211,7 +212,7 @@
                                   <input type="text" required id="link2" name="link2" class="mt-1 block w-full text-sm border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500">
                                 </div>
                                 <div class="mt-4 flex gap-x-4">
-                                  <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Upload</button>
+                                  <button id="submit-button" type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Upload</button>
                                   <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" data-modal-close>Cancel</button>
                                 </div>
                               </form>
@@ -314,6 +315,13 @@
 </script>
 
 
+<script>
+    function disableSubmitButton(form) {
+        var submitButton = form.querySelector('#submit-button');
+        submitButton.disabled = true;
+        submitButton.innerText = 'Uploading...';
+    }
+</script>
 
 
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\individu;
 use Carbon\Carbon;
@@ -123,41 +124,52 @@ class OperatorController extends Controller
         $request->validate([
             'link' => 'required|string|max:255',
             'link2' => 'required|string|max:255',
+            'submission_token' => 'required|string|max:255',
         ]);
 
-        $data = pt::find($id);
-        $currentYear = Carbon::now();
-        $nextYear = Carbon::now()->addYear();
-        
-        if ($data) {
-            $data->status = 'active';
-            $data->save();
 
-            $sertifikatkaprodi = sertifikatkaprodi::create([
-                'id_kaprodi' => $data->id_user,
-                'tglmulai' => $currentYear->toDateString(),
-                'tglberakhir' => $nextYear->toDateString(),
-                'status' => "active",
-                'link' => $request->link,
-                'link2' => $request->link2,
-            ]);
+        // Check for the submission token
+    if (Session::get('last_submission_token') !== $request->input('submission_token')) {
+        // Store the token so it can't be reused
+        Session::put('last_submission_token', $request->input('submission_token'));
 
-            // Send email notification
-            $emailData = (object)[
-                'namakaprodi' => $data->namakaprodi, // assuming 'name' field exists
-                'namapt' => $data->namapt,
-                'start_date' => $currentYear->format('d - m - Y'),
-                'end_date' => $nextYear->format('d - m - Y'),
-                'link' => $request->link,
-                'link2' => $request->link2,
-            ];
-            Mail::to($data->email)->send(new PtApproved($emailData));
+            $data = pt::find($id);
+            $currentYear = Carbon::now();
+            $nextYear = Carbon::now()->addYear();
+            
+            if ($data) {
+                $data->status = 'active';
+                $data->save();
 
-            return redirect()->back()->with('success', 'Status updated to active.');
+                $sertifikatkaprodi = sertifikatkaprodi::create([
+                    'id_kaprodi' => $data->id_user,
+                    'tglmulai' => $currentYear->toDateString(),
+                    'tglberakhir' => $nextYear->toDateString(),
+                    'status' => "active",
+                    'link' => $request->link,
+                    'link2' => $request->link2,
+                ]);
+
+                // Send email notification
+                $emailData = (object)[
+                    'namakaprodi' => $data->namakaprodi, // assuming 'name' field exists
+                    'namapt' => $data->namapt,
+                    'start_date' => $currentYear->format('d - m - Y'),
+                    'end_date' => $nextYear->format('d - m - Y'),
+                    'link' => $request->link,
+                    'link2' => $request->link2,
+                ];
+                Mail::to($data->email)->send(new PtApproved($emailData));
+
+                return redirect()->back()->with('success', 'Status updated to active.');
+            }
+
+            return redirect()->back()->with('error', 'Data not found.');
         }
-        
-        return redirect()->back()->with('error', 'Data not found.');
+
+        return redirect()->back()->with('error', 'Invalid submission token or submission already processed.');
     }
+
     
     public function disapprovept($id)
     {
@@ -219,45 +231,57 @@ class OperatorController extends Controller
 
     public function approveuser(Request $request, $id)
     {
-        $data = individu::find($id);
-
+        // Validate the request
         $request->validate([
             'link' => 'required|string|max:255',
             'link2' => 'required|string|max:255',
+            'submission_token' => 'required|string',
         ]);
-        
-        if ($data) {
-            $data->status = 'active';
-            $data->save();
 
-            $currentYear = Carbon::now();
-            $nextYear = Carbon::now()->addYear();
+        // Check for the submission token
+        if (Session::get('last_submission_token') !== $request->input('submission_token')) {
+            // Store the token so it can't be reused
+            Session::put('last_submission_token', $request->input('submission_token'));
 
-            $sertifikatindividu = sertifikatindividu::create([
-                'id_individu' => $data->id_user,
-                'tglmulai' => $currentYear->toDateString(),
-                'tglberakhir' => $nextYear->toDateString(),
-                'status' => "active",
-                'link' => $request->link,
-                'link2' => $request->link2,
-            ]);
+            $data = individu::find($id);
 
+            if ($data) {
+                // Update the status
+                $data->status = 'active';
+                $data->save();
 
-            // Send email notification
-            $emailData = (object)[
-                'namadosen' => $data->namadosen, // assuming 'name' field exists
-                'nidn' => $data->nidn,
-                'start_date' => $currentYear->format('d - m - Y'), // format untuk email
-                'end_date' => $nextYear->format('d - m - Y'), // format untuk email
-                'link' => $request->link,
-                'link2' => $request->link2,
-            ];
-            Mail::to($data->email)->send(new DosenApproved($emailData));
+                // Set current and next year dates
+                $currentYear = Carbon::now();
+                $nextYear = Carbon::now()->addYear();
 
-            return redirect()->back()->with('success', 'Status updated to active.');
+                // Create new sertifikatindividu entry
+                $sertifikatindividu = sertifikatindividu::create([
+                    'id_individu' => $data->id_user,
+                    'tglmulai' => $currentYear->toDateString(),
+                    'tglberakhir' => $nextYear->toDateString(),
+                    'status' => "active",
+                    'link' => $request->link,
+                    'link2' => $request->link2,
+                ]);
+
+                // Send email notification
+                $emailData = (object)[
+                    'namadosen' => $data->namadosen,
+                    'nidn' => $data->nidn,
+                    'start_date' => $currentYear->format('d - m - Y'),
+                    'end_date' => $nextYear->format('d - m - Y'),
+                    'link' => $request->link,
+                    'link2' => $request->link2,
+                ];
+                Mail::to($data->email)->send(new DosenApproved($emailData));
+
+                return redirect()->back()->with('success', 'Status updated to active.');
+            }
+
+            return redirect()->back()->with('error', 'Data not found.');
         }
-        
-        return redirect()->back()->with('error', 'Data not found.');
+
+        return redirect()->back()->withErrors(['error' => 'Form has already been submitted.']);
     }
     
     public function disapproveuser($id)
