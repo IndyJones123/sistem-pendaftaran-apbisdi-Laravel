@@ -29,6 +29,10 @@ class ProfileController extends Controller
         {
             $Data = individu::where('id_user', $request->user()->id)->first();
         }
+        else
+        {
+            $Data = null;
+        }
         
 
         return view('profile.edit', [

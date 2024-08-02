@@ -33,17 +33,17 @@
       <!-- Grid -->
       <div class="grid grid-cols-12 gap-2 sm:gap-6 items-center lg:-translate-x-10">
         <div class="col-span-4">
-          <img class="rounded-xl" src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1981&q=80" alt="Image Description">
+          <img class="max-w-fit h-48 object-cover rounded-xl" src="{{ asset('data/' . Auth::user()->gambar) }}" alt="Image Description">
         </div>
         <!-- End Col -->
 
         <div class="col-span-3">
-          <img class="rounded-xl" src="https://images.unsplash.com/photo-1605629921711-2f6b00c6bbf4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80" alt="Image Description">
+          <img class="max-w-fit h-48 object-cover rounded-xl" src="{{ asset('data/' . Auth::user()->gambar) }}" alt="Image Description">
         </div>
         <!-- End Col -->
 
         <div class="col-span-5">
-          <img class="rounded-xl" src="https://images.unsplash.com/photo-1600194992440-50b26e0a0309?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80" alt="Image Description">
+          <img class="max-w-fit h-48 object-cover rounded-xl" src="{{ asset('data/' . Auth::user()->gambar) }}" alt="Image Description">
         </div>
         <!-- End Col -->
       </div>

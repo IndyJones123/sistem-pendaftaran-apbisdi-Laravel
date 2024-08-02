@@ -59,8 +59,10 @@
     </div>
     <!-- End Col -->
 
-    <div class="lg:col-span-4 mt-10 lg:mt-0">
-      <img class="w-full rounded-xl" src="https://plus.unsplash.com/premium_photo-1683842188982-e2920f594fda?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Image Description">
+    <div class="lg:col-span-4 mt-10 lg:mt-0 items-center justify-center">
+<div class="max-w-sm rounded-xl overflow-hidden shadow-lg">
+    <img class="max-w-fit h-48 object-cover" src="{{ asset('data/' . Auth::user()->gambar) }}" alt="Image Description">
+</div>
     </div>
     <!-- End Col -->
   </div>
