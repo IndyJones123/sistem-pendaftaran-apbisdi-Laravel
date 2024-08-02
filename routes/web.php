@@ -4,6 +4,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Middleware\CheckSubmissionToken;
 
 //Main Code
 use App\Http\Controllers\PtController;
@@ -72,7 +73,6 @@ Route::middleware(['auth', 'operator'])->prefix('operator')->group(function () {
     //Start Aprroving Of Kaprodi (PT)
 
         //Approve
-        Route::post('/status/approve/pt/{id}', [OperatorController::class, 'approvept'])->name('status.approve.pt');
         
         //EditSertifikat PT
         Route::post('/status/editsertif/pt/{id}', [OperatorController::class, 'editsertifpt'])->name('status.edit.pt');
@@ -87,8 +87,10 @@ Route::middleware(['auth', 'operator'])->prefix('operator')->group(function () {
 
     //Start Approving Of User / Dosen 
         
-        //Approve
-        Route::post('/status/approve/user/{id}', [OperatorController::class, 'approveuser'])->name('status.approve.user');
+    
+            Route::post('/status/approve/pt/{id}', [OperatorController::class, 'approvept'])->middleware(CheckSubmissionToken::class)->name('status.approve.pt');
+            Route::post('/status/approve/user/{id}', [OperatorController::class, 'approveuser'])->middleware(CheckSubmissionToken::class)->name('status.approve.user');
+        
 
         //EditSertifikat User
         Route::post('/status/editsertif/user/{id}', [OperatorController::class, 'editsertifuser'])->name('status.edit.user');

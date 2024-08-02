@@ -53,7 +53,7 @@
     <!-- End Col -->
 
     <div class="mt-3">
-      <p class="text-gray-500">We're part of the <a class="font-semibold text-blue-600 hover:text-blue-700" href="#">Apbisdi Indonesia</a>.</p>
+      <p class="text-gray-500">Develop by  <a class="font-semibold text-blue-600 hover:text-blue-700" href="https://bisdi.upnjatim.ac.id">Bisnis Digital UPN Veteran Jatim</a>.</p>
       <p class="text-gray-500">©Apbisdi {{$currentYear}}. All rights reserved.</p>
     </div>
     <!-- Social Brands -->

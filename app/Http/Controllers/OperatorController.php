@@ -12,6 +12,7 @@ use App\Models\sertifikatkaprodi;
 use Illuminate\Support\Facades\Auth;
 
 
+
 //Mail
 use App\Mail\PtApproved;
 use App\Mail\PtDisapprove;
@@ -124,14 +125,7 @@ class OperatorController extends Controller
         $request->validate([
             'link' => 'required|string|max:255',
             'link2' => 'required|string|max:255',
-            'submission_token' => 'required|string|max:255',
         ]);
-
-
-        // Check for the submission token
-    if (Session::get('last_submission_token') !== $request->input('submission_token')) {
-        // Store the token so it can't be reused
-        Session::put('last_submission_token', $request->input('submission_token'));
 
             $data = pt::find($id);
             $currentYear = Carbon::now();
@@ -165,9 +159,6 @@ class OperatorController extends Controller
             }
 
             return redirect()->back()->with('error', 'Data not found.');
-        }
-
-        return redirect()->back()->with('error', 'Invalid submission token or submission already processed.');
     }
 
     
@@ -235,13 +226,7 @@ class OperatorController extends Controller
         $request->validate([
             'link' => 'required|string|max:255',
             'link2' => 'required|string|max:255',
-            'submission_token' => 'required|string',
         ]);
-
-        // Check for the submission token
-        if (Session::get('last_submission_token') !== $request->input('submission_token')) {
-            // Store the token so it can't be reused
-            Session::put('last_submission_token', $request->input('submission_token'));
 
             $data = individu::find($id);
 
@@ -279,9 +264,6 @@ class OperatorController extends Controller
             }
 
             return redirect()->back()->with('error', 'Data not found.');
-        }
-
-        return redirect()->back()->withErrors(['error' => 'Form has already been submitted.']);
     }
     
     public function disapproveuser($id)
