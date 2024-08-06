@@ -134,13 +134,13 @@ class RegisteredUserController extends Controller
             if($request->hasFile('dokumen1'))
             {
                 $dokumen1Name = Str::random(10) . '.' . $request->file('dokumen1')->getClientOriginalExtension();
-                $request->file('dokumen1')->move('data/',$dokumen1Name);
+                $request->file('dokumen1')->storeAs('public/data',$dokumen1Name);
                 $dokumen1 = $dokumen1Name;
             }
             if($request->hasFile('dokumen2'))
             {
                 $dokumen2Name = Str::random(10) . '.' . $request->file('dokumen2')->getClientOriginalExtension();
-                $request->file('dokumen2')->move('data/',$dokumen2Name);
+                $request->file('dokumen2')->storeAs('public/data',$dokumen2Name);
                 $dokumen2 = $dokumen2Name;
             }
 

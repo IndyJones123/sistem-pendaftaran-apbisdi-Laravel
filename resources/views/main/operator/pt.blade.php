@@ -154,10 +154,10 @@
                       </button>
                       <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden divide-y divide-gray-200 min-w-40 z-20 bg-white shadow-2xl rounded-lg p-2 mt-2" aria-labelledby="hs-table-dropdown-1">
                         <div class="py-2 first:pt-0 last:pb-0">
-                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" target="_blank" href="{{asset('/data/'. $data->berkas1)}} ">  
+                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" target="_blank" href="{{asset('storage/data/'. $data->berkas1)}} ">  
                           Berkas 1 ( Bukti Pembayaran )
                           </a>
-                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" target="_blank" href="{{asset('/data/'. $data->berkas2)}}">
+                          <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500" target="_blank" href="{{asset('storage/data/'. $data->berkas2)}}">
                             Berkas 2 ( Bukti Surat Keterangan )
                           </a>
                         </div>

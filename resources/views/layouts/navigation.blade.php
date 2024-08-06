@@ -13,7 +13,7 @@
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div class="flex flex-row gap-5 items-center justify-center">
                                 <img class="w-12 h-12 rounded-full object-cover border border-gray-300" src="{{ asset('data/' . Auth::user()->gambar) }}"></img>
-                                <div class="text-bold">{{ Auth::user()->name }}</div>
+                                <div class="text-upp">{{ Auth::user()->name }}</div>
                             </div>
                             
 
